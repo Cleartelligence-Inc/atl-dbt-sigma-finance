@@ -1,0 +1,33 @@
+
+version: 2
+
+sources:
+  - name: sap_s4
+    database: sandbox
+    schema: atl_dbt_sigma
+    tables:
+      - name:  s4_customer
+      - name: s4_customer_hierarchy
+      - name: s4_financial_transactions
+      - name: s4_gl_account
+      - name: s4_customer_type
+      - name: s4_customer_type_text      
+
+models:
+    - name: stg_customer
+      description: "Customer Model"
+      # columns:
+      #     - name: id
+      #       description: "The primary key for this table"
+      #       tests:
+      #           - unique
+      #           - not_null
+
+    - name: stg_customer_hierarchy
+      description: "customer hierarchy model"
+      # columns:
+      #     - name: id
+      #       description: "The primary key for this table"
+      #       tests:
+      #           - unique
+      #           - not_null

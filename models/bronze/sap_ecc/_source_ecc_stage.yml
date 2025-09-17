@@ -1,0 +1,33 @@
+
+version: 2
+
+sources:
+  - name: sap_ecc
+    database: sandbox
+    schema: atl_dbt_sigma
+    tables:
+      - name:  ecc_customer
+      - name: ecc_customer_hierarchy
+      - name: ecc_financial_transactions
+      - name: ecc_gl_account
+      - name: ecc_customer_type
+      - name: ecc_customer_type_text      
+
+models:
+    - name: stg_customer
+      description: "Customer Model"
+      # columns:
+      #     - name: id
+      #       description: "The primary key for this table"
+      #       tests:
+      #           - unique
+      #           - not_null
+
+    - name: stg_customer_hierarchy
+      description: "customer hierarchy model"
+      # columns:
+      #     - name: id
+      #       description: "The primary key for this table"
+      #       tests:
+      #           - unique
+      #           - not_null

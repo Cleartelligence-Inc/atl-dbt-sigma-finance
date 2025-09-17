@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: int_customer
+    description: "Customer dimension"
+    columns:
+      - name: customerid
+        tests: [not_null, unique]
+
+  - name: int_gl_account
+    description: "GL Account dimension"
+    columns:
+      - name: accountid
+        tests: [not_null, unique]
+
+  - name: int_customer_type
+    description: "Customer Type"
+    columns:
+      - name: customertypeid
+        tests: [not_null, unique]        
+
+  - name: int_transactions
+    description: "Finance transaction fact table"
+    columns:
+      - name: transactionid
+        tests: [not_null, unique]
+      - name: accountid
+        tests:
+          - relationships:
+              to: ref('int_gl_account')
+              field: accountid
+      - name: customerid
+        tests:
+          - relationships:
+              to: ref('int_customer')
+              field: customerid
+      - name: version
+        tests:
+          - accepted_values:
+              values: ['Actual', 'Forecast', 'Budget']
+      - name: date
+        tests: [not_null]
