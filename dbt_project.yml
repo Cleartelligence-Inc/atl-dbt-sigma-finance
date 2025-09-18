@@ -36,6 +36,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
+  dbt_artifacts:
+    +database: sandbox
+    +schema: atl_dbt_sigma_dq
   database: sandbox
   #schema: atl_dbt_sigma
   bronze:
@@ -58,3 +61,5 @@ models:
     +materialized: table
     #+schema: treasury
 
+on-run-end:
+  - "{{ dbt_artifacts.upload_results(results) }}"
