@@ -37,22 +37,26 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   dbt_artifacts:
-    +database: sandbox
-    +schema: atl_dbt_sigma_dq
-  database: sandbox
-  #schema: atl_dbt_sigma
+    +group: hidden
+
   bronze:
     sap_ecc:
       +materialized: view
-      #+schema: atl_dbt_sigma
+      +tags: ["ecc_brnoze"]
+      # +schema: atl_dbt_sigma
+
     sap_s4:
-      +materialized: view
+      +materialized: view  
+      +tags: ["s4_brnoze"]      
+
       #+schema: treasury
   silver:
       #+schema: silver
       +materialized: table
+      +tags: ["silver"]        
   gold_finance:
     +materialized: table
+    +tags: ["gold_finance"]  
     #+schema: finance
   gold_audit:
     +materialized: table
