@@ -1,4 +1,4 @@
-
+{{ config(materialized='table') }}
 {{ union_with_priority(
     table_list=[
         {"model": "stg_ecc_transactions"},

@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with base as (
 
     -- generate a date range (adjust start/end as needed)
