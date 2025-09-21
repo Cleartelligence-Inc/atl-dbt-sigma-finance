@@ -6,7 +6,7 @@ sources:
     database: sandbox
     schema: atl_dbt_sigma
     tables:
-      - name:  s4_customer
+      - name: s4_customer
       - name: s4_customer_hierarchy
       - name: s4_financial_transactions
       - name: s4_gl_account
@@ -14,7 +14,7 @@ sources:
       - name: s4_customer_type_text      
 
 models:
-    - name: stg_customer
+    - name: stg_s4_customer
       description: "Customer Model"
       # columns:
       #     - name: id
@@ -23,7 +23,7 @@ models:
       #           - unique
       #           - not_null
 
-    - name: stg_customer_hierarchy
+    - name: stg_s4_customer_hierarchy
       description: "customer hierarchy model"
       # columns:
       #     - name: id
