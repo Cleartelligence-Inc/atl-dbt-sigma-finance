@@ -14,7 +14,7 @@ sources:
       - name: ecc_customer_type_text      
 
 models:
-    - name: stg_customer
+    - name: stg_ecc_customer
       description: "Customer Model"
       # columns:
       #     - name: id
@@ -23,7 +23,7 @@ models:
       #           - unique
       #           - not_null
 
-    - name: stg_customer_hierarchy
+    - name: stg_ecc_customer_hierarchy
       description: "customer hierarchy model"
       # columns:
       #     - name: id

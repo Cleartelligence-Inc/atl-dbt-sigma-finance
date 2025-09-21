@@ -37,7 +37,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   dbt_artifacts:
-    +group: hidden
+    # +group: hidden
 
   bronze:
     sap_ecc:
