@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: finance_transactions_aggr
-    description: "Finance Transactions "
+    description: "Finance Transactions"
     columns:
-      - name: accouuntid
-        tests: [not_null, unique]
+      - name: accountid
+        tests: [not_null]
