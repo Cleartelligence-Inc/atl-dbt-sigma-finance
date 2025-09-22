@@ -6,7 +6,7 @@ sources:
     database: sandbox
     schema: atl_dbt_sigma
     tables:
-      - name:  ecc_customer
+      - name: ecc_customer
       - name: ecc_customer_hierarchy
       - name: ecc_financial_transactions
       - name: ecc_gl_account

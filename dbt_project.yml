@@ -36,36 +36,28 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  dbt_artifacts:
-    # +group: hidden
-    +docs:
-        show: false    
+  # dbt_artifacts:
 
   bronze:
     sap_ecc:
       +materialized: view
-      +tags: ["ecc_brnoze"]
-      # +schema: atl_dbt_sigma
+      +tags: ["ecc_bronze"]
+      #+schema: bronze
 
     sap_s4:
       +materialized: view  
-      +tags: ["s4_brnoze"]      
+      +tags: ["s4_bronze"] 
+      #+schema: bronze
 
-      #+schema: treasury
   silver:
       #+schema: silver
       +materialized: table
-      +tags: ["silver"]        
+      +tags: ["silver"]   
+
   gold_finance:
     +materialized: table
     +tags: ["gold_finance"]  
-    #+schema: finance
-  gold_audit:
-    +materialized: table
-    #+schema: audit
-  gold_treasury:
-    +materialized: table
-    #+schema: treasury
+    #+schema: finance   
 
-on-run-end:
-  - "{{ dbt_artifacts.upload_results(results) }}"
+# on-run-end:
+#   - "{{ dbt_artifacts.upload_results(results) }}"
