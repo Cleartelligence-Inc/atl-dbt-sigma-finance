@@ -4,7 +4,7 @@ version: 2
 sources:
   - name: sap_s4
     database: sandbox
-    schema: atl_dbt_sigma
+    schema: dbt_sigma
     tables:
       - name: s4_customer
       - name: s4_customer_hierarchy
