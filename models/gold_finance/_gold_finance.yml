@@ -2,7 +2,131 @@ version: 2
 
 models:
   - name: finance_transactions_aggr
-    description: "Finance Transactions"
+    description: "Finance transactions aggregated by account, customer, customer type, product, profit center, and date. This is the gold fact model used for finance metrics in the semantic layer."
+    semantic_model:
+      enabled: true
+      name: finance_transactions
+      group: finance
+
+    agg_time_dimension: transaction_date
     columns:
+      - name: finance_transaction_grain_id
+        description: "Surrogate key representing the semantic grain of the aggregated finance transaction row."
+        entity:
+          type: primary
+          name: finance_transaction
+        data_tests:
+          - not_null
+          - unique
+
       - name: accountid
-        tests: [not_null]
+        description: "General ledger account identifier."
+        entity:
+          type: foreign
+          name: account
+        data_tests:
+          - not_null
+
+      - name: customerid
+        description: "Customer identifier."
+        entity:
+          type: foreign
+          name: customer
+
+      - name: customertypeid
+        description: "Customer type identifier."
+        entity:
+          type: foreign
+          name: customer_type
+
+      - name: country
+        description: "Customer country."
+        dimension:
+          type: categorical
+
+      - name: accounttypeid
+        description: "Account type identifier."
+        entity:
+          type: foreign
+          name: account_type
+
+      - name: customertype_descr
+        description: "Customer type description."
+        dimension:
+          type: categorical
+
+      - name: productid
+        description: "Product identifier."
+        entity:
+          type: foreign
+          name: product
+
+      - name: productcategoryid
+        description: "Product category identifier."
+        entity:
+          type: foreign
+          name: product_category
+
+      - name: product_hier_level
+        description: "Product hierarchy level."
+        dimension:
+          type: categorical
+
+      - name: profitcenterid
+        description: "Profit center identifier."
+        entity:
+          type: foreign
+          name: profit_center
+
+      - name: date
+        description: "Transaction date."
+        granularity: day
+        dimension:
+          type: time
+          name: transaction_date
+
+      - name: year
+        description: "Calendar year."
+        dimension:
+          type: categorical
+          name: calendar_year
+
+      - name: quarter
+        description: "Calendar quarter."
+        dimension:
+          type: categorical
+          name: calendar_quarter
+
+      - name: month
+        description: "Calendar month."
+        dimension:
+          type: categorical
+          name: calendar_month
+
+      - name: actual_vale
+        description: "Aggregated actual transaction value."
+
+      - name: budget_value
+        description: "Aggregated budget transaction value."
+
+    metrics:
+      - name: finance_actual_value
+        description: "Sum of actual transaction values."
+        label: "Finance Actual Value"
+        type: simple
+        agg: sum
+        expr: actual_vale
+
+      - name: finance_budget_value
+        description: "Sum of budget transaction values."
+        label: "Finance Budget Value"
+        type: simple
+        agg: sum
+        expr: budget_value
+
+      - name: finance_transaction_rows
+        description: "Count of aggregated finance transaction rows."
+        label: "Finance Transaction Rows"
+        type: simple
+        agg: count
+        expr: 1

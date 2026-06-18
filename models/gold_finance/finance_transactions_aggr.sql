@@ -1,4 +1,17 @@
 select
+    md5(concat_ws('||',
+        coalesce(cast(a.accountid as varchar), ''),
+        coalesce(cast(a.customerid as varchar), ''),
+        coalesce(cast(a.customertypeid as varchar), ''),
+        coalesce(cast(country as varchar), ''),
+        coalesce(cast(g.accounttypeid as varchar), ''),
+        coalesce(cast(medium_descr as varchar), ''),
+        coalesce(cast(productid as varchar), ''),
+        coalesce(cast(productcategoryid as varchar), ''),
+        coalesce(cast(p.level as varchar), ''),
+        coalesce(cast(profitcenterid as varchar), ''),
+        coalesce(cast(date as varchar), '')
+    )) as finance_transaction_grain_id,
     a.accountid,
     a.customerid,
     a.customertypeid,
@@ -19,7 +32,8 @@ select
 from {{ ref("int_transactions") }} a
 left outer join {{ ref("int_customer_type") }} b on a.customertypeid = b.customertypeid
 inner join {{ ref("int_date") }} d on a.date = d.date_day
-left outer join {{ ref("product_hierarchy") }} p on p.hierarchyid = a.productcategoryid
+left outer join {{ ref("int_product_hierarchy") }} p on p.hierarchyid = a.productcategoryid
+
 left outer join {{ ref("int_customer") }} c on a.customerid = c.customerid
 left outer join {{ ref("int_gl_account") }} g on g.accountid = a.accountid
 
