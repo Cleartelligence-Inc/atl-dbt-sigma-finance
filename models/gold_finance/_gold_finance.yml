@@ -2,10 +2,12 @@ version: 2
 
 models:
   - name: finance_transactions_aggr
-    description: "Finance transactions aggregated by account, customer, product, profit center, and date."
+    description: "Finance transactions aggregated by account, customer, customer type, product, profit center, and date. This is the gold fact model used for finance metrics in the semantic layer."
     semantic_model:
       enabled: true
+      name: finance_transactions
       group: finance
+
     agg_time_dimension: transaction_date
     columns:
       - name: finance_transaction_grain_id
@@ -13,6 +15,9 @@ models:
         entity:
           type: primary
           name: finance_transaction
+        data_tests:
+          - not_null
+          - unique
 
       - name: accountid
         description: "General ledger account identifier."
@@ -73,12 +78,6 @@ models:
           type: foreign
           name: profit_center
 
-      - name: actual_vale
-        description: "Aggregated actual transaction value."
-
-      - name: budget_value
-        description: "Aggregated budget transaction value."
-
       - name: date
         description: "Transaction date."
         granularity: day
@@ -103,6 +102,12 @@ models:
         dimension:
           type: categorical
           name: calendar_month
+
+      - name: actual_vale
+        description: "Aggregated actual transaction value."
+
+      - name: budget_value
+        description: "Aggregated budget transaction value."
 
     metrics:
       - name: finance_actual_value

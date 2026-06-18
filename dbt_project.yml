@@ -30,31 +30,30 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 # In dbt, the default materialization for a model is a view. This means, when you run 
 # dbt run or dbt build, all of your models will be built as a view in your data platform. 
-# The configuration below will override this setting for models in the example folder to 
+# The configuration below will override this setting for the example folder to 
 # instead be materialized as tables. Any models you add to the root of the models folder will 
 # continue to be built as views. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 
 models:
-  # dbt_artifacts:
+  atl_dbt_sigma_finance:
+    bronze:
+      sap_ecc:
+        +materialized: table
+        +tags: ["ecc_bronze"]
+        # +schema: bronze
 
-  bronze:
-    sap_ecc:
+      sap_s4:
+        +materialized: table
+        +tags: ["s4_bronze"]
+        # +schema: bronze
+
+    silver:
       +materialized: table
-      +tags: ["ecc_bronze"]
-      #+schema: bronze
+      +tags: ["silver"]
+      # +schema: silver
 
-    sap_s4:
-      +materialized: table  
-      +tags: ["s4_bronze"] 
-      #+schema: bronze
-
-  silver:
-      #+schema: silver
+    gold_finance:
       +materialized: table
-      +tags: ["silver"]   
-
-  gold_finance:
-    +materialized: table
-    +tags: ["gold_finance"]  
-    #+schema: finance   
+      +tags: ["gold_finance"]
+      # +schema: finance

@@ -3,21 +3,52 @@ version: 2
 models:
   - name: int_customer
     description: "Customer dimension"
+    semantic_model:
+      enabled: true
+      name: customers
     columns:
       - name: customerid
+        entity:
+          type: primary
+          name: customer
         data_tests: [not_null, unique]
 
   - name: int_gl_account
     description: "GL Account dimension"
+    semantic_model:
+      enabled: true
+      name: gl_accounts
     columns:
       - name: accountid
+        entity:
+          type: primary
+          name: account
         data_tests: [not_null, unique]
 
   - name: int_customer_type
     description: "Customer Type"
+    semantic_model:
+      enabled: true
+      name: customer_types
     columns:
       - name: customertypeid
+        entity:
+          type: primary
+          name: customer_type
         data_tests: [not_null, unique]
+
+  - name: int_product_hierarchy
+    description: "Product hierarchy dimension conformed across ECC and S4 sources."
+    columns:
+      - name: hierarchyid
+        description: "Hierarchy identifier used to map product categories to hierarchy levels."
+        data_tests: [not_null, unique]
+      - name: description
+        description: "Hierarchy description."
+      - name: level
+        description: "Hierarchy level value."
+      - name: source
+        description: "System source that supplied the surviving hierarchy record."
 
   - name: int_transactions
     description: "Finance transaction fact table"
