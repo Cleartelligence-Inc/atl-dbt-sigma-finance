@@ -5,38 +5,78 @@ models:
     description: "Customer dimension"
     columns:
       - name: customerid
-        tests: [not_null, unique]
+        data_tests: [not_null, unique]
 
   - name: int_gl_account
     description: "GL Account dimension"
     columns:
       - name: accountid
-        tests: [not_null, unique]
+        data_tests: [not_null, unique]
 
   - name: int_customer_type
     description: "Customer Type"
     columns:
       - name: customertypeid
-        tests: [not_null, unique]        
+        data_tests: [not_null, unique]
 
   - name: int_transactions
     description: "Finance transaction fact table"
     columns:
       - name: transactionid
-        tests: [not_null, unique]
+        data_tests: [not_null, unique]
       - name: accountid
-        tests:
+        data_tests:
           - relationships:
-              to: ref('int_gl_account')
-              field: accountid
+              arguments:
+                to: ref('int_gl_account')
+                field: accountid
       - name: customerid
-        tests:
+        data_tests:
           - relationships:
-              to: ref('int_customer')
-              field: customerid
+              arguments:
+                to: ref('int_customer')
+                field: customerid
       - name: version
-        tests:
+        data_tests:
           - accepted_values:
-              values: ['Actual', 'Forecast', 'Budget']
+              arguments:
+                values: ['Actual', 'Forecast', 'Budget']
       - name: date
-        tests: [not_null]
+        data_tests: [not_null]
+
+  - name: int_date
+    description: "Calendar date dimension used as the MetricFlow daily time spine."
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        description: "Base daily date column for time-based joins and aggregations."
+        granularity: day
+      - name: date_id
+        description: "Surrogate integer date key in YYYYMMDD format."
+      - name: year
+        description: "Calendar year."
+      - name: quarter
+        description: "Calendar quarter number."
+      - name: month
+        description: "Calendar month number."
+      - name: month_number
+        description: "Zero-padded calendar month number."
+      - name: month_name
+        description: "Short calendar month name."
+      - name: week_of_year
+        description: "Calendar week of year."
+      - name: day_of_year
+        description: "Calendar day of year."
+      - name: day_of_month
+        description: "Calendar day of month."
+      - name: day_of_week_num
+        description: "Numeric day of week where Sunday = 0."
+      - name: day_name
+        description: "Full day name."
+      - name: day_type
+        description: "Weekday or Weekend classification."
+      - name: year_month
+        description: "Calendar year-month in YYYY-MM format."
+      - name: year_quarter
+        description: "Calendar year-quarter in YYYY-Qn format."

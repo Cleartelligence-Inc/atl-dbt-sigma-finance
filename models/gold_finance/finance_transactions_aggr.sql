@@ -1,4 +1,17 @@
 select
+    md5(concat_ws('||',
+        coalesce(cast(a.accountid as varchar), ''),
+        coalesce(cast(a.customerid as varchar), ''),
+        coalesce(cast(a.customertypeid as varchar), ''),
+        coalesce(cast(country as varchar), ''),
+        coalesce(cast(g.accounttypeid as varchar), ''),
+        coalesce(cast(medium_descr as varchar), ''),
+        coalesce(cast(productid as varchar), ''),
+        coalesce(cast(productcategoryid as varchar), ''),
+        coalesce(cast(p.level as varchar), ''),
+        coalesce(cast(profitcenterid as varchar), ''),
+        coalesce(cast(date as varchar), '')
+    )) as finance_transaction_grain_id,
     a.accountid,
     a.customerid,
     a.customertypeid,
