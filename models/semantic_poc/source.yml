@@ -1,0 +1,10 @@
+
+version: 2
+
+sources:
+  - name: src_semantic
+    database: SANDBOX
+    schema: AHEWLETT
+    tables:
+      - name: EMEA_TBL_SALES_REVENUE_AGG_SECURED
+      - name: EMEA_TBL_SUPPORT_CASES_AGG_SECURED
