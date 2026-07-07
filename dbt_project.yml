@@ -56,8 +56,9 @@ models:
     gold_finance:
       +materialized: table
       +tags: ["gold_finance"]
+      +enabled: false
       # +schema: finance
     
     semantic_poc:
-      +schema: dbt_semantic
+      # +schema: dbt_semantic
       +materialized: table
