@@ -4,7 +4,7 @@ models:
   - name: finance_transactions_aggr
     description: "Finance transactions aggregated by account, customer, customer type, product, profit center, and date. This is the gold fact model used for finance metrics in the semantic layer."
     semantic_model:
-      enabled: true
+      enabled: false
       name: finance_transactions
       group: finance
 
