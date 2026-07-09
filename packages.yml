@@ -3,3 +3,5 @@ packages:
     version: 2.9.3
   - package: dbt-labs/dbt_utils
     version: 1.1.1
+  - git: "https://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@github.com/Cleartelligence-Inc/atl-dbt-sigma-treasury.git"
+    revision: main
